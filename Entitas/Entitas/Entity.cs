@@ -6,6 +6,7 @@ namespace Entitas {
 
     public class Entity : IEntity {
 
+        public event EntityDestroyed OnEntityDestroyed;
         public event EntityChanged OnComponentAdded;
         public event EntityChanged OnComponentRemoved;
         public event ComponentReplaced OnComponentReplaced;
@@ -22,21 +23,20 @@ namespace Entitas {
         internal int _creationIndex;
         internal bool _isEnabled = true;
 
-        readonly int _totalComponents;
-        readonly IComponent[] _components;
-        readonly Stack<IComponent>[] _componentPools;
-        readonly PoolMetaData _poolMetaData;
+        int _totalComponents;
+        IComponent[] _components;
+        Stack<IComponent>[] _componentPools;
+        PoolMetaData _poolMetaData;
 
         IComponent[] _componentsCache;
         int[] _componentIndicesCache;
         string _toStringCache;
         StringBuilder _toStringBuilder;
 
-        /// Use pool.CreateEntity() to create a new entity and
-        /// pool.DestroyEntity() to destroy it.
-        public Entity(int totalComponents,
-                      Stack<IComponent>[] componentPools,
-                      PoolMetaData poolMetaData = null) {
+        public void Setup(int _creationIndex, int totalComponents,
+                          Stack<IComponent>[] componentPools,
+                          PoolMetaData poolMetaData = null) {
+            
             _totalComponents = totalComponents;
             _components = new IComponent[totalComponents];
             _componentPools = componentPools;
@@ -57,6 +57,30 @@ namespace Entitas {
                     "No Pool", componentNames, null
                 );
             }
+
+            _isEnabled = true;
+        }
+
+        public void Destroy() {
+            _isEnabled = false;
+            RemoveAllComponents();
+            OnComponentAdded = null;
+            OnComponentReplaced = null;
+            OnComponentRemoved = null;
+            
+
+            // TODO Test
+            if(OnEntityDestroyed != null) {
+                OnEntityDestroyed(this);
+            }
+
+
+            // TODO Test
+            OnEntityDestroyed = null;
+        }
+
+        public void RemoveAllOnEntityReleasedHandlers() {
+            OnEntityReleased = null;
         }
 
         /// Adds a component at the specified index.
@@ -375,21 +399,6 @@ namespace Entitas {
                     OnEntityReleased(this);
                 }
             }
-        }
-
-        // This method is used internally. Don't call it yourself.
-        // Use pool.DestroyEntity(entity);
-        internal void destroy() {
-            _isEnabled = false;
-            RemoveAllComponents();
-            OnComponentAdded = null;
-            OnComponentReplaced = null;
-            OnComponentRemoved = null;
-        }
-
-        // Do not call this method manually. This method is called by the pool.
-        internal void removeAllOnEntityReleasedHandlers() {
-            OnEntityReleased = null;
         }
 
         /// Returns a cached string to describe the entity

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace Entitas {
 
+    public delegate void EntityDestroyed(IEntity entity);
+
     public delegate void EntityChanged(
         IEntity entity, int index, IComponent component
     );
@@ -19,24 +21,29 @@ namespace Entitas {
     /// You can add, replace and remove IComponent to an entity.
     public interface IEntity {
 
+        /// Occurs when the entity gets destroyed.
+        /// All event handlers will be removed when
+        /// the entity gets destroyed.
+        event EntityDestroyed OnEntityDestroyed;
+
         /// Occurs when a component gets added.
         /// All event handlers will be removed when
-        /// the entity gets destroyed by the pool.
+        /// the entity gets destroyed.
         event EntityChanged OnComponentAdded;
 
         /// Occurs when a component gets removed.
         /// All event handlers will be removed when
-        /// the entity gets destroyed by the pool.
+        /// the entity gets destroyed.
         event EntityChanged OnComponentRemoved;
 
         /// Occurs when a component gets replaced.
         /// All event handlers will be removed when
-        /// the entity gets destroyed by the pool.
+        /// the entity gets destroyed.
         event ComponentReplaced OnComponentReplaced;
 
         /// Occurs when an entity gets released and is not retained anymore.
         /// All event handlers will be removed when
-        /// the entity gets destroyed by the pool.
+        /// the entity gets destroyed.
         event EntityReleased OnEntityReleased;
 
         /// The total amount of components an entity can possibly have.
@@ -63,6 +70,16 @@ namespace Entitas {
         /// contains information about the pool.
         /// It's used to provide better error messages.
         PoolMetaData poolMetaData { get; }
+
+        // TODO Docs
+        void Setup(int creationIndex, int totalComponents,
+                   Stack<IComponent>[] componentPools,
+                   PoolMetaData poolMetaData = null);
+
+        /// Destroys the entity and removes all its components.
+        void Destroy();
+
+        void RemoveAllOnEntityReleasedHandlers();
 
         /// Adds a component at the specified index.
         /// You can only have one component at an index.
@@ -127,7 +144,7 @@ namespace Entitas {
         T CreateComponent<T>(int index) where T : new();
 
 #if ENTITAS_FAST_AND_UNSAFE
-                
+
         /// Returns the number of objects that retain this entity.
         int retainCount { get; }
 
