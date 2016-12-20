@@ -101,8 +101,6 @@ namespace Entitas {
             _cachedEntityReleased = onEntityReleased;
         }
 
-        /// Creates a new entity or gets a reusable entity from the
-        /// internal ObjectPool for entities.
         public virtual TEntity CreateEntity() {
             var entity = _reusableEntities.Count > 0
                     ? _reusableEntities.Pop()
@@ -125,8 +123,6 @@ namespace Entitas {
             return entity;
         }
 
-        /// Destroys all entities in the pool.
-        /// Throws an exception if there are still retained entities.
         public virtual void DestroyAllEntities() {
             var entities = GetEntities();
             for (int i = 0; i < entities.Length; i++) {
@@ -140,12 +136,10 @@ namespace Entitas {
             }
         }
 
-        /// Determines whether the pool has the specified entity.
         public virtual bool HasEntity(TEntity entity) {
             return _entities.Contains(entity);
         }
 
-        /// Returns all entities which are currently in the pool.
         public virtual TEntity[] GetEntities() {
             if(_entitiesCache == null) {
                 _entitiesCache = new TEntity[_entities.Count];
@@ -155,9 +149,6 @@ namespace Entitas {
             return _entitiesCache;
         }
 
-        /// Returns a group for the specified matcher.
-        /// Calling pool.GetGroup(matcher) with the same matcher will always
-        /// return the same instance of the group.
         public virtual Group<TEntity> GetGroup(IMatcher<TEntity> matcher) {
             Group<TEntity> group;
             if(!_groups.TryGetValue(matcher, out group)) {
@@ -184,8 +175,6 @@ namespace Entitas {
             return group;
         }
 
-        /// Clears all groups. This is useful when you want to
-        /// soft-restart your application.
         public void ClearGroups() {
             foreach(var group in _groups.Values) {
                 group.RemoveAllEventHandlers();
@@ -205,8 +194,6 @@ namespace Entitas {
             }
         }
 
-        /// Adds the IEntityIndex for the specified name.
-        /// There can only be one IEntityIndex per name.
         public void AddEntityIndex(string name, IEntityIndex entityIndex) {
             if(_entityIndices.ContainsKey(name)) {
                 throw new PoolEntityIndexDoesAlreadyExistException(this, name);
@@ -215,7 +202,6 @@ namespace Entitas {
             _entityIndices.Add(name, entityIndex);
         }
 
-        /// Gets the IEntityIndex for the specified name.
         public IEntityIndex GetEntityIndex(string name) {
             IEntityIndex entityIndex;
             if(!_entityIndices.TryGetValue(name, out entityIndex)) {
@@ -225,7 +211,6 @@ namespace Entitas {
             return entityIndex;
         }
 
-        /// Deactivates and removes all entity indices.
         public void DeactivateAndRemoveEntityIndices() {
             foreach(var entityIndex in _entityIndices.Values) {
                 entityIndex.Deactivate();
@@ -234,12 +219,10 @@ namespace Entitas {
             _entityIndices.Clear();
         }
 
-        /// Resets the creationIndex back to 0.
         public void ResetCreationIndex() {
             _creationIndex = 0;
         }
 
-        /// Clears the componentPool at the specified index.
         public void ClearComponentPool(int index) {
             var componentPool = _componentPools[index];
             if(componentPool != null) {
@@ -247,15 +230,12 @@ namespace Entitas {
             }
         }
 
-        /// Clears all componentPools.
         public void ClearComponentPools() {
             for (int i = 0; i < _componentPools.Length; i++) {
                 ClearComponentPool(i);
             }
         }
 
-        /// Resets the pool (clears all groups, destroys all entities and
-        /// resets creationIndex back to 0).
         public void Reset() {
             ClearGroups();
             DestroyAllEntities();

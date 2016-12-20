@@ -83,11 +83,6 @@ namespace Entitas {
             OnEntityReleased = null;
         }
 
-        /// Adds a component at the specified index.
-        /// You can only have one component at an index.
-        /// Each component type must have its own constant index.
-        /// The prefered way is to use the
-        /// generated methods from the code generator.
         public IEntity AddComponent(int index, IComponent component) {
             if(!_isEnabled) {
                 throw new EntityIsNotEnabledException(
@@ -119,10 +114,6 @@ namespace Entitas {
             return this;
         }
 
-        /// Removes a component at the specified index.
-        /// You can only remove a component at an index if it exists.
-        /// The prefered way is to use the
-        /// generated methods from the code generator.
         public IEntity RemoveComponent(int index) {
             if(!_isEnabled) {
                 throw new EntityIsNotEnabledException(
@@ -148,10 +139,6 @@ namespace Entitas {
             return this;
         }
 
-        /// Replaces an existing component at the specified index
-        /// or adds it if it doesn't exist yet.
-        /// The prefered way is to use the
-        /// generated methods from the code generator.
         public IEntity ReplaceComponent(int index, IComponent component) {
             if(!_isEnabled) {
                 throw new EntityIsNotEnabledException(
@@ -200,10 +187,6 @@ namespace Entitas {
             }
         }
 
-        /// Returns a component at the specified index.
-        /// You can only get a component at an index if it exists.
-        /// The prefered way is to use the
-        /// generated methods from the code generator.
         public IComponent GetComponent(int index) {
             if(!HasComponent(index)) {
                 throw new EntityDoesNotHaveComponentException(
@@ -219,7 +202,6 @@ namespace Entitas {
             return _components[index];
         }
 
-        /// Returns all added components.
         public IComponent[] GetComponents() {
             if(_componentsCache == null) {
                 var components = EntitasCache.GetIComponentList();
@@ -239,7 +221,6 @@ namespace Entitas {
             return _componentsCache;
         }
 
-        /// Returns all indices of added components.
         public int[] GetComponentIndices() {
             if(_componentIndicesCache == null) {
                 var indices = EntitasCache.GetIntList();
@@ -258,14 +239,10 @@ namespace Entitas {
             return _componentIndicesCache;
         }
 
-        /// Determines whether this entity has a component
-        /// at the specified index.
         public bool HasComponent(int index) {
             return _components[index] != null;
         }
 
-        /// Determines whether this entity has components
-        /// at all the specified indices.
         public bool HasComponents(int[] indices) {
             for(int i = 0; i < indices.Length; i++) {
                 if(_components[indices[i]] == null) {
@@ -276,8 +253,6 @@ namespace Entitas {
             return true;
         }
 
-        /// Determines whether this entity has a component
-        /// at any of the specified indices.
         public bool HasAnyComponent(int[] indices) {
             for(int i = 0; i < indices.Length; i++) {
                 if(_components[indices[i]] != null) {
@@ -288,7 +263,6 @@ namespace Entitas {
             return false;
         }
 
-        /// Removes all components.
         public void RemoveAllComponents() {
             _toStringCache = null;
             for(int i = 0; i < _components.Length; i++) {
@@ -298,12 +272,6 @@ namespace Entitas {
             }
         }
 
-        /// Returns the componentPool for the specified component index.
-        /// componentPools is set by the pool which created the entity and
-        /// is used to reuse removed components.
-        /// Removed components will be pushed to the componentPool.
-        /// Use entity.CreateComponent(index, type) to get a new or
-        /// reusable component from the componentPool.
         public Stack<IComponent> GetComponentPool(int index) {
             var componentPool = _componentPools[index];
             if(componentPool == null) {
@@ -314,8 +282,6 @@ namespace Entitas {
             return componentPool;
         }
 
-        /// Returns a new or reusable component from the componentPool
-        /// for the specified component index.
         public IComponent CreateComponent(int index, Type type) {
             var componentPool = GetComponentPool(index);
             return componentPool.Count > 0
@@ -323,8 +289,6 @@ namespace Entitas {
                         : (IComponent)Activator.CreateInstance(type);
         }
 
-        /// Returns a new or reusable component from the componentPool
-        /// for the specified component index.
         public T CreateComponent<T>(int index) where T : new() {
             var componentPool = GetComponentPool(index);
             return componentPool.Count > 0 ? (T)componentPool.Pop() : new T();
@@ -332,25 +296,17 @@ namespace Entitas {
 
 #if ENTITAS_FAST_AND_UNSAFE
         
-        /// Returns the number of objects that retain this entity.
         public int retainCount { get { return _retainCount; } }
         int _retainCount;
 
 #else
 
-        /// Returns the number of objects that retain this entity.
         public int retainCount { get { return owners.Count; } }
 
-        /// Returns all the objects that retain this entity.
         public readonly HashSet<object> owners = new HashSet<object>();
 
 #endif
 
-        /// Retains the entity. An owner can only retain the same entity once.
-        /// Retain/Release is part of AERC (Automatic Entity Reference Counting)
-        /// and is used internally to prevent pooling retained entities.
-        /// If you use retain manually you also have to
-        /// release it manually at some point.
         public IEntity Retain(object owner) {
 
 #if ENTITAS_FAST_AND_UNSAFE
@@ -370,12 +326,6 @@ namespace Entitas {
             return this;
         }
 
-        /// Releases the entity. An owner can only release an entity
-        /// if it retains it.
-        /// Retain/Release is part of AERC (Automatic Entity Reference Counting)
-        /// and is used internally to prevent pooling retained entities.
-        /// If you use retain manually you also have to
-        /// release it manually at some point.
         public void Release(object owner) {
 
 #if ENTITAS_FAST_AND_UNSAFE
@@ -401,9 +351,6 @@ namespace Entitas {
             }
         }
 
-        /// Returns a cached string to describe the entity
-        /// with the following format:
-        /// Entity_{creationIndex}(*{retainCount})({list of components})
         public override string ToString() {
             if(_toStringCache == null) {
                 if(_toStringBuilder == null) {

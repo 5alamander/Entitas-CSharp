@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace Entitas {
 
-    public delegate void EntityDestroyed(IEntity entity);
-
     public delegate void EntityChanged(
         IEntity entity, int index, IComponent component
     );
@@ -15,6 +13,7 @@ namespace Entitas {
     );
 
     public delegate void EntityReleased(IEntity entity);
+    public delegate void EntityDestroyed(IEntity entity);
 
     /// Use pool.CreateEntity() to create a new entity and
     /// pool.DestroyEntity() to destroy it.
