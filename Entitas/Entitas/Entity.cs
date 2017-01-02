@@ -6,11 +6,11 @@ namespace Entitas {
 
     public class Entity : IEntity {
 
-        public event EntityDestroyed OnEntityDestroyed;
-        public event EntityChanged OnComponentAdded;
-        public event EntityChanged OnComponentRemoved;
-        public event ComponentReplaced OnComponentReplaced;
-        public event EntityReleased OnEntityReleased;
+        public event EntityDestroyedHandler OnEntityDestroyed;
+        public event EntityChangedHandler OnComponentAdded;
+        public event EntityChangedHandler OnComponentRemoved;
+        public event ComponentReplacedHandler OnComponentReplaced;
+        public event EntityReleasedHandler OnEntityReleased;
 
         public int totalComponents { get { return _totalComponents; } }
         public int creationIndex { get { return _creationIndex; } }

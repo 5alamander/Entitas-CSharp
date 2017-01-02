@@ -48,10 +48,10 @@ namespace Entitas {
         readonly Dictionary<string, IEntityIndex> _entityIndices;
 
         // Cache delegates to avoid gc allocations
-        EntityDestroyed _cachedEntityDestroyed;
-        EntityChanged _cachedEntityChanged;
-        ComponentReplaced _cachedComponentReplaced;
-        EntityReleased _cachedEntityReleased;
+        EntityDestroyedHandler _cachedEntityDestroyed;
+        EntityChangedHandler _cachedEntityChanged;
+        ComponentReplacedHandler _cachedComponentReplaced;
+        EntityReleasedHandler _cachedEntityReleased;
 
         /// The prefered way is to use the generated methods from the
         /// code generator to create a Pool,
