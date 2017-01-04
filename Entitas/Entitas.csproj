@@ -33,7 +33,7 @@
   <ItemGroup>
     <Compile Include="Entitas\CodeGenerator\Attributes\CustomPrefixAttribute.cs" />
     <Compile Include="Entitas\CodeGenerator\Attributes\DontGenerateAttribute.cs" />
-    <Compile Include="Entitas\CodeGenerator\Attributes\PoolAttribute.cs" />
+    <Compile Include="Entitas\CodeGenerator\Attributes\ContextAttribute.cs" />
     <Compile Include="Entitas\CodeGenerator\Attributes\SingleEntityAttribute.cs" />
     <Compile Include="Entitas\CodeGenerator\Generators\ComponentIndicesGenerator.cs" />
     <Compile Include="Entitas\CodeGenerator\Generators\PoolsGenerator.cs" />
@@ -55,7 +55,7 @@
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Entity.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\EntityDelegates.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\EntityEqualityComparer.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Entity\EntityInfo.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Entity\ContextInfo.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityAlreadyHasComponentException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityDoesNotHaveComponentException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityInfoException.cs" />
@@ -76,13 +76,13 @@
     <Compile Include="Entitas\XXX_NEW\Core\Matcher\MatcherEquals.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Matcher\MatcherStatic.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Matcher\MatcherToString.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Exceptions\EntityIsNotDestroyedException.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Exceptions\PoolDoesNotContainEntityException.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Exceptions\PoolEntityIndexDoesAlreadyExistException.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Exceptions\PoolEntityIndexDoesNotExistException.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Exceptions\PoolStillHasRetainedEntitiesException.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Pool.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\PoolDelegates.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\Exceptions\EntityIsNotDestroyedException.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\Exceptions\ContextDoesNotContainEntityException.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\Exceptions\ContextEntityIndexDoesAlreadyExistException.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\Exceptions\ContextEntityIndexDoesNotExistException.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\Exceptions\ContextStillHasRetainedEntitiesException.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\Context.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\ContextDelegates.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\EntitasException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\IComponent.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Caching\EntitasCache.cs" />
@@ -116,13 +116,13 @@
     <Compile Include="Entitas\XXX_NEW\Serialization\PublicMemberInfo.cs" />
     <Compile Include="Entitas\XXX_NEW\Serialization\TypeSerializationExtension.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Matcher\MatcherException.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Interfaces\IPool.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Interfaces\IPools.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\PoolExtension.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\Interfaces\IContext.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\Interfaces\IContexts.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\ContextExtension.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\EntityExtension.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\CollectionExtension.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Group\GroupExtension.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\IPoolsExtension.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\IContextsExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -139,12 +139,12 @@
     <Folder Include="Entitas\XXX_NEW\Core\Entity\" />
     <Folder Include="Entitas\XXX_NEW\Core\Group\" />
     <Folder Include="Entitas\XXX_NEW\Core\Matcher\" />
-    <Folder Include="Entitas\XXX_NEW\Core\Pool\" />
+    <Folder Include="Entitas\XXX_NEW\Core\Context\" />
     <Folder Include="Entitas\XXX_NEW\Core\Caching\" />
     <Folder Include="Entitas\XXX_NEW\Systems\" />
     <Folder Include="Entitas\XXX_NEW\Collector\" />
     <Folder Include="Entitas\XXX_NEW\Core\Index\" />
     <Folder Include="Entitas\XXX_NEW\Serialization\" />
-    <Folder Include="Entitas\XXX_NEW\Core\Pool\Interfaces\" />
+    <Folder Include="Entitas\XXX_NEW\Core\Context\Interfaces\" />
   </ItemGroup>
 </Project>

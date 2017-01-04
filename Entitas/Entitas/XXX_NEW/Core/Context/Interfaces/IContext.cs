@@ -1,9 +1,9 @@
 ﻿namespace Entitas {
     
-    public interface IPool {
+    public interface IContext {
 
         int totalComponents { get; }
-        EntityInfo entityInfo { get; }
+        ContextInfo entityInfo { get; }
 
         int count { get; }
         int reusableEntitiesCount { get; }
@@ -22,14 +22,14 @@
         void Reset();
     }
 
-    public interface IPool<TEntity> : IPool
+    public interface IContext<TEntity> : IContext
         where TEntity : class, IEntity, new() {
 
-        event PoolChangedHandler<TEntity> OnEntityCreated;
-        event PoolChangedHandler<TEntity> OnEntityDestroyed;
+        event ContextChangedHandler<TEntity> OnEntityCreated;
+        event ContextChangedHandler<TEntity> OnEntityDestroyed;
 
-        event PoolGroupChangedHandler<TEntity> OnGroupCreated;
-        event PoolGroupChangedHandler<TEntity> OnGroupCleared;
+        event ContextGroupChangedHandler<TEntity> OnGroupCreated;
+        event ContextGroupChangedHandler<TEntity> OnGroupCleared;
 
         TEntity CreateEntity();
         bool HasEntity(TEntity entity);

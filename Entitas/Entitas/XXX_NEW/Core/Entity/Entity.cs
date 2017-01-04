@@ -16,7 +16,7 @@ namespace Entitas {
         public int totalComponents { get; private set; }
         public int creationIndex { get; private set; }
 
-        public EntityInfo entityInfo { get; private set; }
+        public ContextInfo entityInfo { get; private set; }
         public bool isEnabled { get; private set; }
 
         Stack<IComponent>[] _componentPools;
@@ -29,7 +29,7 @@ namespace Entitas {
 
         public void Initialize(int totalComponents, int creationIndexsss,
                                Stack<IComponent>[] componentPools,
-                               EntityInfo entityInfo = null) {
+                               ContextInfo entityInfo = null) {
             
             this.totalComponents = totalComponents;
             _componentPools = componentPools;
@@ -38,13 +38,13 @@ namespace Entitas {
             Reactivate(creationIndex);
         }
 
-        EntityInfo createDefaultEntityInfo() {
+        ContextInfo createDefaultEntityInfo() {
             var componentNames = new string[totalComponents];
             for(int i = 0; i < componentNames.Length; i++) {
                 componentNames[i] = i.ToString();
             }
 
-            return new EntityInfo("No Pool", componentNames, null);
+            return new ContextInfo("No Context", componentNames, null);
         }
 
         public void Reactivate(int creationIndex) {

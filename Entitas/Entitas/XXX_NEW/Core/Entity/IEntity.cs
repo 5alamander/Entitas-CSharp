@@ -15,12 +15,12 @@ namespace Entitas {
         int totalComponents { get; }
         int creationIndex { get; }
 
-        EntityInfo entityInfo { get; }
+        ContextInfo entityInfo { get; }
         bool isEnabled { get; }
 
         void Initialize(int totalComponents, int creationIndex,
                    Stack<IComponent>[] componentPools,
-                   EntityInfo entityInfo = null);
+                   ContextInfo entityInfo = null);
 
         void Reactivate(int creationIndex);
 

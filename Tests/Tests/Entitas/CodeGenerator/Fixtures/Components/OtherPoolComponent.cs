@@ -2,7 +2,7 @@
 using Entitas;
 using Entitas.CodeGenerator;
 
-[SingleEntity, Pool("Other")]
+[SingleEntity, Context("Other")]
 public class OtherPoolComponent : IComponent {
     public DateTime timestamp;
     public bool isLoggedIn;

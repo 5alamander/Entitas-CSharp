@@ -4,7 +4,7 @@ namespace Entitas {
 
         public EntityIsNotDestroyedException(string message) :
             base(message + "\nEntity is not destroyed yet!",
-                     "Did you manually call entity.Release(pool) yourself? " +
+                    "Did you manually call entity.Release(context) yourself? " +
                      "If so, please don't :)") {
         }
     }

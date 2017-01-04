@@ -127,8 +127,8 @@
     <Compile Include="..\Entitas\Entitas\CodeGenerator\Attributes\DontGenerateAttribute.cs">
       <Link>Linked Libraries\Entitas\CodeGenerator\Attributes\DontGenerateAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Entitas\Entitas\CodeGenerator\Attributes\PoolAttribute.cs">
-      <Link>Linked Libraries\Entitas\CodeGenerator\Attributes\PoolAttribute.cs</Link>
+    <Compile Include="..\Entitas\Entitas\CodeGenerator\Attributes\ContextAttribute.cs">
+      <Link>Linked Libraries\Entitas\CodeGenerator\Attributes\ContextAttribute.cs</Link>
     </Compile>
     <Compile Include="..\Entitas\Entitas\CodeGenerator\Attributes\SingleEntityAttribute.cs">
       <Link>Linked Libraries\Entitas\CodeGenerator\Attributes\SingleEntityAttribute.cs</Link>

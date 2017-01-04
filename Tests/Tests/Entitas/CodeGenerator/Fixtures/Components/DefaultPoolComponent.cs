@@ -1,6 +1,6 @@
 ﻿using Entitas;
 using Entitas.CodeGenerator;
 
-[Pool]
+[Context]
 public class DefaultPoolComponent : IComponent {
 }

@@ -12,10 +12,10 @@ namespace Entitas.Serialization.Configuration {
             set { _config[GENERATED_FOLDER_PATH_KEY] = value; }
         }
 
-        public const string POOLS_KEY = "Entitas.CodeGenerator.Pools";
-        public string[] pools {
-            get { return separateValues(_config.GetValueOrDefault(POOLS_KEY, string.Empty)); }
-            set { _config[POOLS_KEY] = joinValues(value); }
+        public const string CONTEXTS_KEY = "Entitas.CodeGenerator.Contexts";
+        public string[] context {
+            get { return separateValues(_config.GetValueOrDefault(CONTEXTS_KEY, string.Empty)); }
+            set { _config[CONTEXTS_KEY] = joinValues(value); }
         }
 
         public const string ENABLED_CODE_GENERATORS_KEY = "Entitas.CodeGenerator.EnabledCodeGenerators";
@@ -34,7 +34,7 @@ namespace Entitas.Serialization.Configuration {
 
             // Assigning will apply default values to missing keys
             generatedFolderPath = generatedFolderPath;
-            pools = pools;
+            context = context;
             enabledCodeGenerators = enabledCodeGenerators;
         }
 

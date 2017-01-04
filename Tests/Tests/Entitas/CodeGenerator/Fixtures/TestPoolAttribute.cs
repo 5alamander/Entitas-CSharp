@@ -1,6 +1,6 @@
 using Entitas.CodeGenerator;
 
-public class TestPoolAttribute : PoolAttribute {
+public class TestPoolAttribute : ContextAttribute {
 
     public TestPoolAttribute() : base("Test") {
     }

@@ -2,16 +2,16 @@ using System.Collections.Generic;
 
 namespace Entitas {
 
-    public class XXXPool<TEntity> : IPool<TEntity>
+    public class Context<TEntity> : IContext<TEntity>
         where TEntity : class, IEntity, new() {
 
-        public event PoolChangedHandler<TEntity> OnEntityCreated;
-        public event PoolChangedHandler<TEntity> OnEntityDestroyed;
-        public event PoolGroupChangedHandler<TEntity> OnGroupCreated;
-        public event PoolGroupChangedHandler<TEntity> OnGroupCleared;
+        public event ContextChangedHandler<TEntity> OnEntityCreated;
+        public event ContextChangedHandler<TEntity> OnEntityDestroyed;
+        public event ContextGroupChangedHandler<TEntity> OnGroupCreated;
+        public event ContextGroupChangedHandler<TEntity> OnGroupCleared;
 
         public int totalComponents { get { return _totalComponents; } }
-        public EntityInfo entityInfo { get { return _entityInfo; } }
+        public ContextInfo entityInfo { get { return _entityInfo; } }
 
         public int count { get { return _entities.Count; } }
         public int reusableEntitiesCount {
@@ -22,7 +22,7 @@ namespace Entitas {
         }
 
         readonly int _totalComponents;
-        readonly EntityInfo _entityInfo;
+        readonly ContextInfo _entityInfo;
 
         readonly HashSet<TEntity> _entities = new HashSet<TEntity>(
             EntityEqualityComparer<TEntity>.comparer
@@ -50,12 +50,12 @@ namespace Entitas {
         ComponentReplacedHandler _cachedComponentReplaced;
         EntityReleasedHandler _cachedEntityReleased;
 
-        public XXXPool(int totalComponents) : this(totalComponents, 0, null) {
+        public Context(int totalComponents) : this(totalComponents, 0, null) {
         }
 
-        public XXXPool(int totalComponents,
+        public Context(int totalComponents,
                     int startCreationIndex,
-                    EntityInfo entityInfo) {
+                    ContextInfo entityInfo) {
             _totalComponents = totalComponents;
             _creationIndex = startCreationIndex;
             _entityInfo = entityInfo ?? createDefaultEntityInfo();
@@ -75,14 +75,14 @@ namespace Entitas {
             _cachedEntityReleased = onEntityReleased;
         }
 
-        EntityInfo createDefaultEntityInfo() {
+        ContextInfo createDefaultEntityInfo() {
             var componentNames = new string[totalComponents];
             const string prefix = "Index ";
             for (int i = 0; i < componentNames.Length; i++) {
                 componentNames[i] = prefix + i;
             }
 
-            return new EntityInfo("Unnamed Pool", componentNames, null);
+            return new ContextInfo("Unnamed Context", componentNames, null);
         }
 
         public TEntity CreateEntity() {
@@ -121,7 +121,7 @@ namespace Entitas {
             _entities.Clear();
 
             if(_retainedEntities.Count != 0) {
-                throw new PoolStillHasRetainedEntitiesException(this);
+                throw new ContextStillHasRetainedEntitiesException(this);
             }
         }
 
@@ -186,7 +186,7 @@ namespace Entitas {
 
         public void AddEntityIndex(string name, IEntityIndex entityIndex) {
             if(_entityIndices.ContainsKey(name)) {
-                throw new PoolEntityIndexDoesAlreadyExistException(this, name);
+                throw new ContextEntityIndexDoesAlreadyExistException(this, name);
             }
 
             _entityIndices.Add(name, entityIndex);
@@ -195,7 +195,7 @@ namespace Entitas {
         public IEntityIndex GetEntityIndex(string name) {
             IEntityIndex entityIndex;
             if(!_entityIndices.TryGetValue(name, out entityIndex)) {
-                throw new PoolEntityIndexDoesNotExistException(this, name);
+                throw new ContextEntityIndexDoesNotExistException(this, name);
             }
 
             return entityIndex;
@@ -238,16 +238,16 @@ namespace Entitas {
         }
 
         public override string ToString() {
-            return _entityInfo.poolName;
+            return _entityInfo.contextName;
         }
 
         void onEntityDestroyed(IEntity entity) {
             var tEntity = (TEntity)entity;
             var removed = _entities.Remove(tEntity);
             if(!removed) {
-                throw new PoolDoesNotContainEntityException(
+                throw new ContextDoesNotContainEntityException(
                     "'" + this + "' cannot destroy " + entity + "!",
-                    "Did you call pool.DestroyEntity() on a wrong pool?"
+                    "Did you call context.DestroyEntity() on a wrong context?"
                 );
             }
             _entitiesCache = null;

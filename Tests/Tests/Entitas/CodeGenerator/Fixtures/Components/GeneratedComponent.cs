@@ -1,11 +1,11 @@
 using Entitas;
 using Entitas.CodeGenerator;
 
-[Pool("ServicePool"), CustomComponentName("GeneratedService")]
+[Context("ServicePool"), CustomComponentName("GeneratedService")]
 public class SomeService {
 }
 
-[Pool("ServicePool")]
+[Context("ServicePool")]
 public class GeneratedService : IComponent {
     public SomeService value;
 }
