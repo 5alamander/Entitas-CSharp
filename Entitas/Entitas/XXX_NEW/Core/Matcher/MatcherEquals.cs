@@ -1,6 +1,6 @@
 namespace Entitas {
 
-    public partial class Matcher {
+    public partial class Matcher<TEntity> {
 
         public override bool Equals(object obj) {
             if(obj == null || obj.GetType() != GetType() ||
@@ -8,14 +8,14 @@ namespace Entitas {
                 return false;
             }
 
-            var matcher = (Matcher)obj;
-            if(!equalIndices(matcher.allOfIndices, _allOfIndices)) {
+            var matcher = (Matcher<TEntity>)obj;
+            if(!equalIndices(matcher.allOfIndices, allOfIndices)) {
                 return false;
             }
-            if(!equalIndices(matcher.anyOfIndices, _anyOfIndices)) {
+            if(!equalIndices(matcher.anyOfIndices, anyOfIndices)) {
                 return false;
             }
-            if(!equalIndices(matcher.noneOfIndices, _noneOfIndices)) {
+            if(!equalIndices(matcher.noneOfIndices, noneOfIndices)) {
                 return false;
             }
 
@@ -45,12 +45,13 @@ namespace Entitas {
         int _hash;
         bool _isHashCached;
 
+        // TODO Test if AnyOf or NoneOf at later point of time, consider resetting _isHashCached
         public override int GetHashCode() {
             if(!_isHashCached) {
                 var hash = GetType().GetHashCode();
-                hash = applyHash(hash, _allOfIndices, 3, 53);
-                hash = applyHash(hash, _anyOfIndices, 307, 367);
-                hash = applyHash(hash, _noneOfIndices, 647, 683);
+                hash = applyHash(hash, allOfIndices, 3, 53);
+                hash = applyHash(hash, anyOfIndices, 307, 367);
+                hash = applyHash(hash, noneOfIndices, 647, 683);
                 _hash = hash;
                 _isHashCached = true;
             }

@@ -10,9 +10,9 @@ namespace Entitas {
         public event GroupUpdatedHandler<TEntity> OnEntityUpdated;
 
         public int count { get { return _entities.Count; } }
-        public IMatcher matcher { get { return _matcher; } }
+        public IMatcher<TEntity> matcher { get { return _matcher; } }
 
-        readonly IMatcher _matcher;
+        readonly IMatcher<TEntity> _matcher;
 
         readonly HashSet<TEntity> _entities = new HashSet<TEntity>(
             EntityEqualityComparer<TEntity>.comparer
@@ -22,7 +22,7 @@ namespace Entitas {
         TEntity _singleEntityCache;
         string _toStringCache;
 
-        public XXXGroup(IMatcher matcher) {
+        public XXXGroup(IMatcher<TEntity> matcher) {
             _matcher = matcher;
         }
 

@@ -51,10 +51,6 @@
     <Compile Include="Entitas\CodeGenerator\Generators\BlueprintsGenerator.cs" />
     <Compile Include="Entitas\CodeGenerator\Interfaces\IBlueprintsCodeGenerator.cs" />
     <Compile Include="Entitas\CodeGenerator\Attributes\CustomComponentNameAttribute.cs" />
-    <Compile Include="Entitas\XXX_NEW\Extensions\CollectionExtension.cs" />
-    <Compile Include="Entitas\XXX_NEW\Extensions\EntityExtension.cs" />
-    <Compile Include="Entitas\XXX_NEW\Extensions\GroupExtension.cs" />
-    <Compile Include="Entitas\XXX_NEW\Extensions\PoolExtension.cs" />
     <Compile Include="Entitas\XXX_NEW\Extensions\TypeExtension.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Entity.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\EntityDelegates.cs" />
@@ -85,10 +81,8 @@
     <Compile Include="Entitas\XXX_NEW\Core\Pool\Exceptions\PoolEntityIndexDoesAlreadyExistException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Pool\Exceptions\PoolEntityIndexDoesNotExistException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Pool\Exceptions\PoolStillHasRetainedEntitiesException.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\IPool.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Pool\Pool.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Pool\PoolDelegates.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Pool\Pools.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\EntitasException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\IComponent.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Caching\EntitasCache.cs" />
@@ -121,6 +115,14 @@
     <Compile Include="Entitas\XXX_NEW\Serialization\Configuration\Properties.cs" />
     <Compile Include="Entitas\XXX_NEW\Serialization\PublicMemberInfo.cs" />
     <Compile Include="Entitas\XXX_NEW\Serialization\TypeSerializationExtension.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Matcher\MatcherException.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Pool\Interfaces\IPool.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Pool\Interfaces\IPools.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Pool\PoolExtension.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Entity\EntityExtension.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Entity\CollectionExtension.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Group\GroupExtension.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Pool\IPoolsExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -143,5 +145,6 @@
     <Folder Include="Entitas\XXX_NEW\Collector\" />
     <Folder Include="Entitas\XXX_NEW\Core\Index\" />
     <Folder Include="Entitas\XXX_NEW\Serialization\" />
+    <Folder Include="Entitas\XXX_NEW\Core\Pool\Interfaces\" />
   </ItemGroup>
 </Project>

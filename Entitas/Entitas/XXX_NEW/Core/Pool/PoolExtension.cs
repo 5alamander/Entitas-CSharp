@@ -2,12 +2,12 @@ namespace Entitas {
 
     public static class PoolExtension {
 
-        public static TEntity[] GetEntities<TEntity>(this IPool<TEntity> pool, IMatcher matcher)
+        public static TEntity[] GetEntities<TEntity>(this IPool<TEntity> pool, IMatcher<TEntity> matcher)
             where TEntity : class, IEntity, new() {
             return pool.GetGroup(matcher).GetEntities();
         }
 
-        public static Collector<TEntity> CreateCollector<TEntity>(this IPool<TEntity> pool, IMatcher matcher, GroupEvent groupEvent = GroupEvent.OnEntityAdded)
+        public static Collector<TEntity> CreateCollector<TEntity>(this IPool<TEntity> pool, IMatcher<TEntity> matcher, GroupEvent groupEvent = GroupEvent.OnEntityAdded)
             where TEntity : class, IEntity, new() {
             return new Collector<TEntity>(pool.GetGroup(matcher), groupEvent);
         }

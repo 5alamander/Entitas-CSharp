@@ -1,8 +1,8 @@
 namespace Entitas {
 
-    public interface IAllOfMatcher : IAnyOfMatcher {
+    public interface IAllOfMatcher<TEntity> : IAnyOfMatcher<TEntity> where TEntity : class, IEntity, new() {
 
-        IAnyOfMatcher AnyOf(params int[] indices);
-        IAnyOfMatcher AnyOf(params IMatcher[] matchers);
+        IAnyOfMatcher<TEntity> AnyOf(params int[] indices);
+        IAnyOfMatcher<TEntity> AnyOf(params IMatcher<TEntity>[] matchers);
     }
 }

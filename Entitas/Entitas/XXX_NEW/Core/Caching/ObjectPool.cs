@@ -5,9 +5,9 @@ namespace Entitas {
 
     public class ObjectPool<T> {
 
-        Func<T> _factoryMethod;
-        Action<T> _resetMethod;
-        Stack<T> _pool;
+        readonly Func<T> _factoryMethod;
+        readonly Action<T> _resetMethod;
+        readonly Stack<T> _pool;
 
         public ObjectPool(Func<T> factoryMethod, Action<T> resetMethod = null) {
             _factoryMethod = factoryMethod;

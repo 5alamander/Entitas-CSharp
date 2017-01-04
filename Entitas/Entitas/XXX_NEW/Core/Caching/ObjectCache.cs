@@ -5,7 +5,7 @@ namespace Entitas {
 
     public class ObjectCache {
 
-        Dictionary<Type, object> _objectPools;
+        readonly Dictionary<Type, object> _objectPools;
 
         public ObjectCache() {
             _objectPools = new Dictionary<Type, object>();
@@ -26,6 +26,7 @@ namespace Entitas {
             return GetObjectPool<T>().Get();
         }
 
+        // TODO test to add object before try to get first object
         public void Push<T>(T obj) {
             ((ObjectPool<T>)_objectPools[typeof(T)]).Push(obj);
         }

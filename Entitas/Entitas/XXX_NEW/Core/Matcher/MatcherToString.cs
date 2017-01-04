@@ -2,9 +2,7 @@ using System.Text;
 
 namespace Entitas {
 
-    public partial class Matcher {
-
-        public string[] componentNames;
+    public partial class Matcher<TEntity> {
 
         string _toStringCache;
         StringBuilder _toStringBuilder;
@@ -15,17 +13,17 @@ namespace Entitas {
                     _toStringBuilder = new StringBuilder();
                 }
                 _toStringBuilder.Length = 0;
-                if(_allOfIndices != null) {
-                    appendIndices(_toStringBuilder, "AllOf", _allOfIndices, componentNames);
+                if(allOfIndices != null) {
+                    appendIndices(_toStringBuilder, "AllOf", allOfIndices, componentNames);
                 }
-                if(_anyOfIndices != null) {
-                    if(_allOfIndices != null) {
+                if(anyOfIndices != null) {
+                    if(allOfIndices != null) {
                         _toStringBuilder.Append(".");
                     }
-                    appendIndices(_toStringBuilder, "AnyOf", _anyOfIndices, componentNames);
+                    appendIndices(_toStringBuilder, "AnyOf", anyOfIndices, componentNames);
                 }
-                if(_noneOfIndices != null) {
-                    appendIndices(_toStringBuilder, ".NoneOf", _noneOfIndices, componentNames);
+                if(noneOfIndices != null) {
+                    appendIndices(_toStringBuilder, ".NoneOf", noneOfIndices, componentNames);
                 }
                 _toStringCache = _toStringBuilder.ToString();
             }

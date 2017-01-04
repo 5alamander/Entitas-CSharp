@@ -9,12 +9,12 @@ namespace Entitas {
 
         string _toStringCache;
 
-        protected ReactiveSystem(XXXPools pools) {
-            _collector = GetTrigger(pools);
+        protected ReactiveSystem(IPool<TEntity> pool) {
+            _collector = GetTrigger(pool);
             _buffer = new List<TEntity>();
         }
 
-        protected abstract Collector<TEntity> GetTrigger(XXXPools pools);
+        protected abstract Collector<TEntity> GetTrigger(IPool<TEntity> pool);
         protected abstract bool Filter(TEntity entity);
 
         public abstract void Execute(IList<TEntity> entities);

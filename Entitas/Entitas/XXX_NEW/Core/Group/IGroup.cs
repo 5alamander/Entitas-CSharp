@@ -3,7 +3,6 @@
     public interface IGroup {
 
         int count { get; }
-        IMatcher matcher { get; }
 
         void RemoveAllEventHandlers();
     }
@@ -14,6 +13,8 @@
         event GroupChangedHandler<TEntity> OnEntityAdded;
         event GroupChangedHandler<TEntity> OnEntityRemoved;
         event GroupUpdatedHandler<TEntity> OnEntityUpdated;
+
+        IMatcher<TEntity> matcher { get; }
 
         void HandleEntitySilently(TEntity entity);
         void HandleEntity(TEntity entity, int index, IComponent component);
