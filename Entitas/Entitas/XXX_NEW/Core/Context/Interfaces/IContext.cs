@@ -3,7 +3,7 @@
     public interface IContext {
 
         int totalComponents { get; }
-        ContextInfo entityInfo { get; }
+        ContextInfo contextInfo { get; }
 
         int count { get; }
         int reusableEntitiesCount { get; }

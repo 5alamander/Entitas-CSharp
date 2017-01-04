@@ -16,7 +16,7 @@ namespace Entitas {
         public int totalComponents { get; private set; }
         public int creationIndex { get; private set; }
 
-        public ContextInfo entityInfo { get; private set; }
+        public ContextInfo contextInfo { get; private set; }
         public bool isEnabled { get; private set; }
 
         Stack<IComponent>[] _componentPools;
@@ -29,16 +29,16 @@ namespace Entitas {
 
         public void Initialize(int totalComponents, int creationIndexsss,
                                Stack<IComponent>[] componentPools,
-                               ContextInfo entityInfo = null) {
+                               ContextInfo contextInfo = null) {
             
             this.totalComponents = totalComponents;
             _componentPools = componentPools;
-            this.entityInfo = entityInfo ?? createDefaultEntityInfo();
+            this.contextInfo = contextInfo ?? createDefaultContextInfo();
             _components = new IComponent[totalComponents];
             Reactivate(creationIndex);
         }
 
-        ContextInfo createDefaultEntityInfo() {
+        ContextInfo createDefaultContextInfo() {
             var componentNames = new string[totalComponents];
             for(int i = 0; i < componentNames.Length; i++) {
                 componentNames[i] = i.ToString();
@@ -78,7 +78,7 @@ namespace Entitas {
             if(!isEnabled) {
                 throw new EntityIsNotEnabledException(
                     "Cannot add component '" +
-                    entityInfo.componentNames[index] + "' to " + this + "!"
+                    contextInfo.componentNames[index] + "' to " + this + "!"
                 );
             }
 
@@ -86,7 +86,7 @@ namespace Entitas {
                 throw new EntityAlreadyHasComponentException(
                     index,
                     "Cannot add component '" +
-                    entityInfo.componentNames[index] + "' to " + this + "!",
+                    contextInfo.componentNames[index] + "' to " + this + "!",
                     "You should check if an entity already has the component " +
                     "before adding it or use entity.ReplaceComponent()."
                 );
@@ -107,14 +107,14 @@ namespace Entitas {
             if(!isEnabled) {
                 throw new EntityIsNotEnabledException(
                     "Cannot remove component '" +
-                    entityInfo.componentNames[index] + "' from " + this + "!"
+                    contextInfo.componentNames[index] + "' from " + this + "!"
                 );
             }
 
             if(!HasComponent(index)) {
                 throw new EntityDoesNotHaveComponentException(
                     index, "Cannot remove component '" +
-                    entityInfo.componentNames[index] + "' from " + this + "!",
+                    contextInfo.componentNames[index] + "' from " + this + "!",
                     "You should check if an entity has the component " +
                     "before removing it."
                 );
@@ -129,7 +129,7 @@ namespace Entitas {
             if(!isEnabled) {
                 throw new EntityIsNotEnabledException(
                     "Cannot replace component '" +
-                    entityInfo.componentNames[index] + "' on " + this + "!"
+                    contextInfo.componentNames[index] + "' on " + this + "!"
                 );
             }
 
@@ -176,7 +176,7 @@ namespace Entitas {
             if(!HasComponent(index)) {
                 throw new EntityDoesNotHaveComponentException(
                     index, "Cannot get component '" +
-                    entityInfo.componentNames[index] + "' from " + this + "!",
+                    contextInfo.componentNames[index] + "' from " + this + "!",
                     "You should check if an entity has the component " +
                     "before getting it."
                 );

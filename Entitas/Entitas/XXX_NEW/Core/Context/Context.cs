@@ -11,7 +11,7 @@ namespace Entitas {
         public event ContextGroupChangedHandler<TEntity> OnGroupCleared;
 
         public int totalComponents { get { return _totalComponents; } }
-        public ContextInfo entityInfo { get { return _entityInfo; } }
+        public ContextInfo contextInfo { get { return _contextInfo; } }
 
         public int count { get { return _entities.Count; } }
         public int reusableEntitiesCount {
@@ -22,7 +22,7 @@ namespace Entitas {
         }
 
         readonly int _totalComponents;
-        readonly ContextInfo _entityInfo;
+        readonly ContextInfo _contextInfo;
 
         readonly HashSet<TEntity> _entities = new HashSet<TEntity>(
             EntityEqualityComparer<TEntity>.comparer
@@ -55,13 +55,13 @@ namespace Entitas {
 
         public Context(int totalComponents,
                     int startCreationIndex,
-                    ContextInfo entityInfo) {
+                    ContextInfo contextInfo) {
             _totalComponents = totalComponents;
             _creationIndex = startCreationIndex;
-            _entityInfo = entityInfo ?? createDefaultEntityInfo();
+            _contextInfo = contextInfo ?? createDefaultContextInfo();
 
-            if(_entityInfo.componentNames.Length != totalComponents) {
-                throw new EntityInfoException(this, entityInfo);
+            if(_contextInfo.componentNames.Length != totalComponents) {
+                throw new ContextInfoException(this, contextInfo);
             }
 
             _groupsForIndex = new List<IGroup<TEntity>>[totalComponents];
@@ -75,7 +75,7 @@ namespace Entitas {
             _cachedEntityReleased = onEntityReleased;
         }
 
-        ContextInfo createDefaultEntityInfo() {
+        ContextInfo createDefaultContextInfo() {
             var componentNames = new string[totalComponents];
             const string prefix = "Index ";
             for (int i = 0; i < componentNames.Length; i++) {
@@ -93,7 +93,7 @@ namespace Entitas {
             } else {
                 entity = new TEntity();
                 entity.Initialize(_totalComponents, _creationIndex++,
-                                  _componentPools, _entityInfo);
+                                  _componentPools, _contextInfo);
             }
             entity.Retain(this);
             _entities.Add(entity);
@@ -238,7 +238,7 @@ namespace Entitas {
         }
 
         public override string ToString() {
-            return _entityInfo.contextName;
+            return _contextInfo.contextName;
         }
 
         void onEntityDestroyed(IEntity entity) {

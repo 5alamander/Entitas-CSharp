@@ -55,10 +55,9 @@
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Entity.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\EntityDelegates.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\EntityEqualityComparer.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Entity\ContextInfo.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityAlreadyHasComponentException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityDoesNotHaveComponentException.cs" />
-    <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityInfoException.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\ContextInfoException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityIsAlreadyRetainedByOwnerException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityIsNotEnabledException.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Entity\Exceptions\EntityIsNotRetainedByOwnerException.cs" />
@@ -123,6 +122,7 @@
     <Compile Include="Entitas\XXX_NEW\Core\Entity\CollectionExtension.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Group\GroupExtension.cs" />
     <Compile Include="Entitas\XXX_NEW\Core\Context\IContextsExtension.cs" />
+    <Compile Include="Entitas\XXX_NEW\Core\Context\ContextInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
